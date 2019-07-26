@@ -4,7 +4,7 @@ import { IntlProvider } from 'react-intl';
 
 import HomePage from '../index';
 
-describe('<HomePage />', () => {
+describe('<Schedule />', () => {
   it('should render and match the snapshot', () => {
     const {
       container: { firstChild },

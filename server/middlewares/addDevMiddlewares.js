@@ -1,4 +1,5 @@
 const path = require('path');
+const proxy = require('http-proxy-middleware');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
@@ -21,6 +22,7 @@ module.exports = function addDevMiddlewares(app, webpackConfig) {
 
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
+  app.use('/api', proxy('/api', { target: 'http://localhost:4001' }));
 
   // Since webpackDevMiddleware uses memory-fs internally to store build
   // artifacts, we use it instead

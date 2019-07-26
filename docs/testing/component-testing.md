@@ -45,7 +45,7 @@ _Note: This is a [state**less** ("dumb") component](../js/README.md#architecture
 It might be used in another component like this:
 
 ```javascript
-// HomePage.js
+Schedule
 
 import Button from './Button';
 

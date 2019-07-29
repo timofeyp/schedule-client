@@ -11,7 +11,6 @@ import { useInjectSaga } from 'utils/injectSaga';
 import reducer from 'containers/Schedule/reducer';
 import { useInjectReducer } from 'utils/injectReducer';
 import saga from 'containers/Schedule/saga';
-import { Table, Container, Card } from 'react-bootstrap';
 
 const Schedule = ({ fetchCurrentWeekEvents, currentWeekEvents }) => {
   useInjectReducer({ key: 'schedule', reducer });
@@ -21,28 +20,11 @@ const Schedule = ({ fetchCurrentWeekEvents, currentWeekEvents }) => {
   }, []);
   if (!isEmpty(currentWeekEvents)) {
     return (
-      <Container>
-        <Card>
-          <Table responsive hover>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th />
-                <th />
-                <th />
-                <th />
-                <th />
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {currentWeekEvents.map((event, i) => (
-                <ScheduleDay key={i} num={++i} eventData={event} />
-              ))}
-            </tbody>
-          </Table>
-        </Card>
-      </Container>
+      <div>
+        {currentWeekEvents.map((event, i) => (
+          <ScheduleDay key={i} eventData={event} />
+        ))}
+      </div>
     );
   }
   return <div>LOAD</div>;

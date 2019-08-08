@@ -9,4 +9,10 @@ const makeSelectCurrentWeekEvents = () =>
     currentWeekEventsState => currentWeekEventsState.currentWeekEvents,
   );
 
-export { makeSelectCurrentWeekEvents };
+const makeSelectEvent = () =>
+  createSelector(
+    selectEvents,
+    currentWeekEventsState => currentWeekEventsState.event,
+  );
+
+export { makeSelectCurrentWeekEvents, makeSelectEvent };

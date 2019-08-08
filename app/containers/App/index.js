@@ -10,19 +10,23 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import HomePage from 'containers/Schedule/Loadable';
+import Schedule from 'containers/Schedule/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
+import Layout from 'containers/Layout';
 import GlobalStyle from '../../global-styles';
 
 export default function App() {
   return (
-    <div>
+    <div className="theme-light">
+      <div className="wrapper">
+      <Layout />
       <Switch>
-        <Route exact path="/" component={HomePage} />
+        <Route exact path="/" component={Schedule} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />
+      </div>
     </div>
   );
 }

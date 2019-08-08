@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import ScheduleDay from 'containers/ScheduleDay';
@@ -11,6 +11,7 @@ import { useInjectSaga } from 'utils/injectSaga';
 import reducer from 'containers/Schedule/reducer';
 import { useInjectReducer } from 'utils/injectReducer';
 import saga from 'containers/Schedule/saga';
+import Modal from 'containers/EventInfoModal';
 
 const Schedule = ({ fetchCurrentWeekEvents, currentWeekEvents }) => {
   useInjectReducer({ key: 'schedule', reducer });
@@ -18,13 +19,29 @@ const Schedule = ({ fetchCurrentWeekEvents, currentWeekEvents }) => {
   useEffect(() => {
     fetchCurrentWeekEvents();
   }, []);
+  const [isOpen, toggleOpen] = useState(false);
+  const toggleHandler = () => toggleOpen(!isOpen);
   if (!isEmpty(currentWeekEvents)) {
     return (
-      <div>
-        {currentWeekEvents.map((event, i) => (
-          <ScheduleDay key={i} eventData={event} />
-        ))}
-      </div>
+        <div className="container__wrap">
+          {currentWeekEvents.map((event, i) => (
+            <ScheduleDay
+              key={i}
+              eventData={event}
+              toggleHandler={toggleHandler}
+            />
+          ))}
+          <Modal
+            color="primary"
+            title="Congratulations!"
+            header
+            btn="Default"
+            message="Expect warmly its tended garden him esteem had remove off. Effects dearest staying
+                   now sixteen nor improve."
+            isOpen={isOpen}
+            toggleHandler={toggleHandler}
+          />
+        </div>
     );
   }
   return <div>LOAD</div>;

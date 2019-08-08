@@ -20,12 +20,12 @@ export default function App() {
   return (
     <div className="theme-light">
       <div className="wrapper">
-      <Layout />
-      <Switch>
-        <Route exact path="/" component={Schedule} />
-        <Route component={NotFoundPage} />
-      </Switch>
-      <GlobalStyle />
+        <Layout />
+        <Switch>
+          <Route exact path="/" component={Schedule} />
+          <Route component={NotFoundPage} />
+        </Switch>
+        <GlobalStyle />
       </div>
     </div>
   );

@@ -14,11 +14,9 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import history from 'utils/history';
-import 'sanitize.css/sanitize.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+import 'normalize.css';
 // Import root app
-import App from 'containers/App';
+import App from 'containers/App1';
 
 // Import Language Provider
 import LanguageProvider from 'containers/LanguageProvider';
@@ -58,7 +56,7 @@ if (module.hot) {
   // Hot reloadable React components and translation json files
   // modules.hot.accept does not accept dynamic dependencies,
   // have to be constants at compile-time
-  module.hot.accept(['./i18n', 'containers/App'], () => {
+  module.hot.accept(['./i18n', 'containers/App1'], () => {
     ReactDOM.unmountComponentAtNode(MOUNT_NODE);
     render(translationMessages);
   });

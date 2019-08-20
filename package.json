@@ -83,6 +83,7 @@
     "lodash": "^4.17.15",
     "mdi-react": "^5.5.0",
     "minimist": "1.2.0",
+    "normalize.css": "^8.0.1",
     "prop-types": "15.7.2",
     "rc-notification": "^3.3.1",
     "rc-time-picker": "^3.7.1",

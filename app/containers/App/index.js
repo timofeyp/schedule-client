@@ -14,7 +14,8 @@ import Schedule from 'containers/Schedule/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import Layout from 'containers/Layout';
-import GlobalStyle from '../../global-styles';
+
+import 'bootstrap/dist/css/bootstrap.css';
 
 export default function App() {
   return (
@@ -25,7 +26,6 @@ export default function App() {
           <Route exact path="/" component={Schedule} />
           <Route component={NotFoundPage} />
         </Switch>
-        <GlobalStyle />
       </div>
     </div>
   );

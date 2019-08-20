@@ -15,4 +15,20 @@ const makeSelectEvent = () =>
     currentWeekEventsState => currentWeekEventsState.event,
   );
 
-export { makeSelectCurrentWeekEvents, makeSelectEvent };
+const makeSelectVCParts = () =>
+  createSelector(
+    selectEvents,
+    currentWeekEventsState => currentWeekEventsState.VCParts,
+  );
+const makeSelectSelectedVCParts = () =>
+  createSelector(
+    selectEvents,
+    currentWeekEventsState => currentWeekEventsState.selectedVCParts,
+  );
+
+export {
+  makeSelectCurrentWeekEvents,
+  makeSelectEvent,
+  makeSelectVCParts,
+  makeSelectSelectedVCParts,
+};

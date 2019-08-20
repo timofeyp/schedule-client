@@ -1,24 +1,16 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Button, ButtonToolbar, Modal, Col, Row } from 'reactstrap';
-import classNames from 'classnames';
+import { Button, ButtonToolbar, Modal } from 'reactstrap';
 import { eraseEventRoutine } from 'containers/Schedule/constants';
 import { createStructuredSelector } from 'reselect';
 import { makeSelectEvent } from 'containers/Schedule/selector';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { isEmpty } from 'lodash';
-import moment from 'moment';
-import ScheduleDay from '../ScheduleDay';
-import ModalTabs from 'components/ModalTabs'
+import ModalTabs from 'components/ModalTabs';
 
 const EventInfoModal = ({ isOpen, toggleHandler, event, eraseEvent }) => {
   const color = 'success';
-  const title = 'title';
-  const message =
-    'Expect warmly its tended garden him esteem had remove off. Effects dearest staying\n' +
-    '                   now sixteen nor improve.';
-  const btn = 'Default';
   const colored = true;
   useEffect(() => {
     if (!isOpen) {
@@ -31,7 +23,7 @@ const EventInfoModal = ({ isOpen, toggleHandler, event, eraseEvent }) => {
         isOpen={isOpen}
         toggle={toggleHandler}
         className="modal-dialog--success modal-dialog--header"
-        size={'sm'}
+        size="sm"
       >
         <div className="modal__header">
           <button
@@ -40,9 +32,9 @@ const EventInfoModal = ({ isOpen, toggleHandler, event, eraseEvent }) => {
             onClick={toggleHandler}
           />
           <span className="lnr lnr-pushpin modal__title-icon" />
-          <h4 className="bold-text  modal__title">{event.data.event_name}</h4>
+          <h4 className="bold-text  modal__title">{event.eventName}</h4>
         </div>
-          <ModalTabs data={event.data} />
+        <ModalTabs data={event} />
         <ButtonToolbar className="modal__footer">
           <Button onClick={toggleHandler}>Cancel</Button>{' '}
           <Button outline={colored} color={color} onClick={toggleHandler}>

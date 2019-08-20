@@ -3,14 +3,12 @@ import classNames from 'classnames';
 import CloseIcon from 'mdi-react/CloseIcon';
 import PropTypes from 'prop-types';
 import settingsImg from 'images/settings.svg';
-import { CustomizerProps, SidebarProps, ThemeProps } from '../../../shared/prop-types/ReducerProps';
-import ToggleTheme from './ToggleTheme';
-import ToggleCollapsedMenu from './ToggleCollapsedMenu';
-import ToggleSquared from './ToggleSquared';
-import ToggleShadow from './ToggleShadow';
-import ToggleTopMenu from './ToggleTopMenu';
-
-
+import Filter from 'containers/Filter';
+import {
+  CustomizerProps,
+  SidebarProps,
+  ThemeProps,
+} from '../../../shared/prop-types/ReducerProps';
 
 export default class Customizer extends PureComponent {
   static propTypes = {
@@ -54,23 +52,28 @@ export default class Customizer extends PureComponent {
 
     return (
       <div className="customizer">
-        <button className="customizer__btn" type="button" onClick={this.handleOpen}>
+        <button
+          className="customizer__btn"
+          type="button"
+          onClick={this.handleOpen}
+        >
           <img className="customizer__btn-icon" src={settingsImg} alt="icon" />
         </button>
         <div className={customizerClass}>
           <div className="customizer__title-wrap">
             <h5>Настройки</h5>
-            <button className="customizer__close-btn" type="button" onClick={this.handleOpen}>
+            <button
+              className="customizer__close-btn"
+              type="button"
+              onClick={this.handleOpen}
+            >
               <CloseIcon />
             </button>
           </div>
-          <p className="customizer__caption">Настройте фильтры для отображения расписания.
+          <p className="customizer__caption">
+            Настройте фильтры для отображения расписания.
           </p>
-          {/*<ToggleCollapsedMenu changeSidebarVisibility={changeSidebarVisibility} sidebar={sidebar} />*/}
-          {/*<ToggleTopMenu toggleTopNavigation={toggleTopNavigation} customizer={customizer} />*/}
-          {/*<ToggleTheme changeToDark={changeToDark} changeToLight={changeToLight} theme={theme} />*/}
-          {/*<ToggleSquared customizer={customizer} changeBorderRadius={changeBorderRadius} />*/}
-          {/*<ToggleShadow customizer={customizer} toggleBoxShadow={toggleBoxShadow} />*/}
+          <Filter />
         </div>
       </div>
     );

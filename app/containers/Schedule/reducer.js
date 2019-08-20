@@ -1,9 +1,17 @@
-import { fetchCurrentWeekEventsRoutine, fetchEventRoutine, eraseEventRoutine } from 'containers/Schedule/constants';
+import {
+  fetchCurrentWeekEventsRoutine,
+  fetchEventRoutine,
+  eraseEventRoutine,
+  fetchVCPartsRoutine,
+  fetchSelectedVCPartsRoutine,
+} from 'containers/Schedule/constants';
 import produce from 'immer/dist/immer';
 
 export const initialState = {
   currentWeekEvents: [],
   event: {},
+  VCParts: [],
+  selectedVCParts: [],
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -18,6 +26,12 @@ const eventsReducer = (state = initialState, action) =>
         break;
       case eraseEventRoutine.SUCCESS:
         draft.event = {};
+        break;
+      case fetchVCPartsRoutine.SUCCESS:
+        draft.VCParts = action.payload;
+        break;
+      case fetchSelectedVCPartsRoutine.SUCCESS:
+        draft.selectedVCParts = action.payload;
         break;
     }
   });

@@ -85,25 +85,27 @@ const ModalTabs = ({ data }) => {
                   <h4 className="subhead mb-1">
                     Председатель:{' '}
                     <span className="dark-text">
-                      {data.chairman_displayname}
+                      {data.chairman}
                     </span>
                   </h4>
-
                   <h4 className="subhead mb-1">
                     Ответственный:{' '}
                     <span className="dark-text">
-                      {data.responsible_displayname}
+                      {data.responsibleDisplayname}
                     </span>
                   </h4>
-
                   <h4 className="subhead mb-1">
                     Департамент:{' '}
-                    <span className="dark-text">{data.responsible_dept}</span>
+                    <span className="dark-text">{data.responsibleDept}</span>
+                  </h4>
+                  <h4 className="subhead mb-1">
+                    Студия:{' '}
+                    <span className="dark-text">{data.room.name}</span>
                   </h4>
                 </TabPane>
                 <TabPane tabId="2">
                   <p>
-                    <Participants vcParts={data.vc_parts} />
+                    <Participants VCParts={data.VCParts} />
                   </p>
                 </TabPane>
                 <TabPane tabId="3">

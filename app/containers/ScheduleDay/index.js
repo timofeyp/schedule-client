@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Table, Container, Card } from 'react-bootstrap';
 import { CardBody, Col, Row } from 'reactstrap';
@@ -7,11 +7,12 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 
 const ScheduleDay = ({ eventData, toggleHandler, fetchEvent }) => {
-  const { data } = eventData;
+  const { events } = eventData;
   const eventClickHandler = id => {
     toggleHandler();
     fetchEvent(id);
   };
+
   return (
     <Container className="mb-10">
       <Row className="justify-content-md-center">
@@ -19,7 +20,7 @@ const ScheduleDay = ({ eventData, toggleHandler, fetchEvent }) => {
           <Card>
             <CardBody>
               <div className="card__title">
-                <h3 className="subhead">{eventData._id.date}</h3>
+                <h3 className="subhead">{eventData._id}</h3>
               </div>
               <Table responsive hover striped>
                 <thead>
@@ -31,20 +32,18 @@ const ScheduleDay = ({ eventData, toggleHandler, fetchEvent }) => {
                 </thead>
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
                 <tbody>
-                  {data.map((event, i) => (
+                  {events.map((event, i) => (
                     <tr
-                      onClick={() => eventClickHandler(event.event_id)}
-                      key={event.event_id}
+                      onClick={() => eventClickHandler(event._id)}
+                      key={event._id}
                     >
                       <th className="no-wrap" scope="row">
                         {++i}
                       </th>
-                      <td>{event.event_name}</td>
-                      <td className="no-wrap" align="right">{`${
-                        event.hour_start ? event.hour_start : '00'
-                      }.${event.minute_start ? event.minute_start : '00'}-${
-                        event.hour_end ? event.hour_end : '00'
-                      }.${event.minute_end ? event.minute_end : '00'}`}</td>
+                      <td>{event.eventName}</td>
+                      <td className="no-wrap" align="right">
+                        {event.timeStart}-{event.timeEnd}
+                      </td>
                     </tr>
                   ))}
                 </tbody>

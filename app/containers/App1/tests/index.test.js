@@ -5,7 +5,7 @@ import App from '../index';
 
 const renderer = new ShallowRenderer();
 
-describe('<App />', () => {
+describe('<App1 />', () => {
   it('should render and match the snapshot', () => {
     renderer.render(<App />);
     const renderedOutput = renderer.getRenderOutput();

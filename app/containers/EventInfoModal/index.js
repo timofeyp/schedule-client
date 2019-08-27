@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Button, ButtonToolbar, Modal } from 'reactstrap';
 import { eraseEventRoutine } from 'containers/Schedule/constants';
 import { createStructuredSelector } from 'reselect';
-import { makeSelectEvent } from 'containers/Schedule/selector';
+import { makeSelectEvent } from 'containers/Schedule/selectors';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { isEmpty } from 'lodash';

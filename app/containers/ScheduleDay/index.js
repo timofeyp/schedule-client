@@ -5,9 +5,11 @@ import { CardBody, Col, Row } from 'reactstrap';
 import { fetchEventRoutine } from 'containers/Schedule/constants';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { sortBy } from 'lodash';
 
 const ScheduleDay = ({ eventData, toggleHandler, fetchEvent }) => {
   const { events } = eventData;
+  const eventsSorted = sortBy(events, ['timeStart']);
   const eventClickHandler = id => {
     toggleHandler();
     fetchEvent(id);
@@ -32,7 +34,7 @@ const ScheduleDay = ({ eventData, toggleHandler, fetchEvent }) => {
                 </thead>
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
                 <tbody>
-                  {events.map((event, i) => (
+                  {eventsSorted.map((event, i) => (
                     <tr
                       onClick={() => eventClickHandler(event._id)}
                       key={event._id}

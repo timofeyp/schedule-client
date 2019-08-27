@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 const Participants = ({ VCParts }) => (
   <div>
-    {VCParts.map(VCGroup =>
+    {VCParts.map((VCGroup, i) =>
       VCGroup.VCParts.length ? (
-        <h4 className="subhead mb-1">
+        <h4 key={i} className="subhead mb-1">
           {`${VCGroup.groupName}: `}
           <span className="dark-text">
             {VCGroup.VCParts.map(VCPart => `${VCPart.name} / `)}

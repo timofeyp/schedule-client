@@ -19,7 +19,6 @@ module.exports = function addDevMiddlewares(app, webpackConfig) {
     compiler,
     webpackConfig.output.publicPath,
   );
-
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
   app.use('/api', proxy('/api', { target: 'http://localhost:4001' }));

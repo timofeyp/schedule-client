@@ -1,8 +1,7 @@
 /* eslint-disable no-return-assign */
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import NotificationSystem from 'rc-notification';
 import Topbar from './topbar/Topbar';
@@ -11,20 +10,18 @@ import Sidebar from './sidebar/Sidebar';
 import SidebarMobile from './topbar_with_navigation/sidebar_mobile/SidebarMobile';
 import Customizer from './customizer/Customizer';
 import { BasicNotification } from '../../shared/components/Notification';
-// import { changeMobileSidebarVisibility, changeSidebarVisibility } from '../../redux/actions/sidebarActions';
-// import { changeThemeToDark, changeThemeToLight } from '../../redux/actions/themeActions';
-// import { changeBorderRadius, toggleBoxShadow, toggleTopNavigation } from '../../redux/actions/customizerActions';
-import { CustomizerProps, SidebarProps, ThemeProps } from '../../shared/prop-types/ReducerProps';
 
 let notification = null;
 
 const showNotification = () => {
   notification.notice({
-    content: <BasicNotification
-      title="👋 Welcome to the EasyDev!"
-      message="You have successfully registered in the EasyDev. Now you can start to explore the dashboard
+    content: (
+      <BasicNotification
+        title="👋 Welcome to the EasyDev!"
+        message="You have successfully registered in the EasyDev. Now you can start to explore the dashboard
                 interface with a bunch of components and applications. Enjoy!"
-    />,
+      />
+    ),
     duration: 5,
     closable: true,
     style: { top: 0, left: 'calc(100vw - 100%)' },
@@ -32,123 +29,96 @@ const showNotification = () => {
   });
 };
 
-class Layout extends Component {
-  static propTypes = {
-    dispatch: PropTypes.func.isRequired,
-    sidebar: SidebarProps.isRequired,
-    customizer: CustomizerProps.isRequired,
-    theme: ThemeProps.isRequired,
-  };
-
-  componentDidMount() {
-    NotificationSystem.newInstance({}, n => notification = n);
+const Layout = props => {
+  useEffect(() => {
+    NotificationSystem.newInstance({}, n => (notification = n));
     setTimeout(() => showNotification(), 700);
-  }
+    return () => notification.destroy;
+  }, []);
 
-  componentWillUnmount() {
-    notification.destroy();
-  }
+  const changeSidebarVisibility = () => {};
 
-  changeSidebarVisibility = () => {
+  const changeMobileSidebarVisibility = () => {};
 
+  const changeToDark = () => {};
+
+  const changeToLight = () => {};
+
+  const toggleTopNavigation = () => {};
+
+  const changeBorderRadius = () => {};
+
+  const toggleBoxShadow = () => {};
+
+  const customizer = {
+    squaredCornders: false,
+    topNavigation: true,
+    withBoxShadow: false,
   };
-
-  changeMobileSidebarVisibility = () => {
-
+  const sidebar = {
+    collapse: false,
+    show: false,
   };
-
-  changeToDark = () => {
-
+  const theme = {
+    className: 'theme-light',
   };
+  const layoutClass = classNames({
+    layout: true,
+    'layout--collapse': sidebar.collapse,
+    'layout--top-navigation': customizer.topNavigation,
+  });
 
-  changeToLight = () => {
+  const {
+    location: { pathname },
+  } = props;
 
-  };
-
-  toggleTopNavigation = () => {
-
-  };
-
-  changeBorderRadius = () => {
-
-  };
-
-  toggleBoxShadow = () => {
-
-  };
-
-  render() {
-    // const { customizer, sidebar, theme } = this.props;
-    // console.log(customizer, sidebar, theme);
-    const customizer = {
-      squaredCornders: false,
-      topNavigation: true,
-      withBoxShadow: false
-    }
-    const sidebar = {
-      collapse: false,
-      show: false,
-    }
-    const theme = {
-      className: "theme-light"
-    }
-    const layoutClass = classNames({
-      layout: true,
-      'layout--collapse': sidebar.collapse,
-      'layout--top-navigation': customizer.topNavigation,
-    });
-
-    return (
+  return (
+    !(pathname === '/login') && (
       <div className={layoutClass}>
         <Customizer
           customizer={customizer}
           sidebar={sidebar}
           theme={theme}
-          changeSidebarVisibility={this.changeSidebarVisibility}
-          toggleTopNavigation={this.toggleTopNavigation}
-          changeToDark={this.changeToDark}
-          changeToLight={this.changeToLight}
-          changeBorderRadius={this.changeBorderRadius}
-          toggleBoxShadow={this.toggleBoxShadow}
+          changeSidebarVisibility={changeSidebarVisibility}
+          toggleTopNavigation={toggleTopNavigation}
+          changeToDark={changeToDark}
+          changeToLight={changeToLight}
+          changeBorderRadius={changeBorderRadius}
+          toggleBoxShadow={toggleBoxShadow}
         />
-        {customizer.topNavigation
-          ? (
-            <TopbarWithNavigation
-              changeMobileSidebarVisibility={this.changeMobileSidebarVisibility}
-            />
-          )
-          : (
-            <Topbar
-              changeMobileSidebarVisibility={this.changeMobileSidebarVisibility}
-              changeSidebarVisibility={this.changeSidebarVisibility}
-            />
-          )
-        }
-        {customizer.topNavigation
-          ? (
-            <SidebarMobile
-              sidebar={sidebar}
-              changeToDark={this.changeToDark}
-              changeToLight={this.changeToLight}
-              changeMobileSidebarVisibility={this.changeMobileSidebarVisibility}
-            />
-          )
-          : (
-            <Sidebar
-              sidebar={sidebar}
-              changeToDark={this.changeToDark}
-              changeToLight={this.changeToLight}
-              changeMobileSidebarVisibility={this.changeMobileSidebarVisibility}
-            />
-          )
-        }
+        {customizer.topNavigation ? (
+          <TopbarWithNavigation
+            changeMobileSidebarVisibility={changeMobileSidebarVisibility}
+          />
+        ) : (
+          <Topbar
+            changeMobileSidebarVisibility={changeMobileSidebarVisibility}
+            changeSidebarVisibility={changeSidebarVisibility}
+          />
+        )}
+        {customizer.topNavigation ? (
+          <SidebarMobile
+            sidebar={sidebar}
+            changeToDark={changeToDark}
+            changeToLight={changeToLight}
+            changeMobileSidebarVisibility={changeMobileSidebarVisibility}
+          />
+        ) : (
+          <Sidebar
+            sidebar={sidebar}
+            changeToDark={changeToDark}
+            changeToLight={changeToLight}
+            changeMobileSidebarVisibility={changeMobileSidebarVisibility}
+          />
+        )}
       </div>
-    );
-  }
-}
+    )
+  );
+};
 
-export default withRouter(connect(state => ({
-  customizer: state.customizer,
-  sidebar: state.sidebar,
-  theme: state.theme,
-}))(Layout));
+export default withRouter(
+  connect(state => ({
+    customizer: state.customizer,
+    theme: state.theme,
+  }))(Layout),
+);

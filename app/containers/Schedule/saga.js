@@ -10,9 +10,11 @@ import {
   fetchSelectedVCPartsRoutine,
 } from 'containers/Schedule/constants';
 import axios from 'utils/axios';
+import { isEmpty } from 'lodash';
 
-function* fetchCurrentWeekEvents() {
-  const res = yield call(axios.get, '/api/events/get-week');
+function* fetchCurrentWeekEvents({ payload }) {
+  const data = !isEmpty(payload) ? { filter: payload } : {};
+  const res = yield call(axios.post, '/api/events/get-week', data);
   yield put({ type: fetchCurrentWeekEventsRoutine.SUCCESS, payload: res.data });
 }
 
@@ -28,7 +30,6 @@ function* fetchSelectedVcParts() {
 
 function* fetchEvent({ payload }) {
   const res = yield call(axios.get, `/api/events/get-event-data/${payload.id}`);
-  console.log(res.data);
   yield put({ type: fetchEventRoutine.SUCCESS, payload: res.data });
 }
 

@@ -68,6 +68,9 @@
       width: calc(100% - 80px);
       padding-left: 10px;
       margin-left: 80px;
+      .form .form-control {
+        border-radius: 0;
+      }
     }
 
     .form__form-group-label {

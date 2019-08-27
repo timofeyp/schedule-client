@@ -8,13 +8,25 @@ import {
   fetchSelectedVCPartsRoutine,
 } from 'containers/Schedule/constants';
 import { createStructuredSelector } from 'reselect';
-import { makeSelectCurrentWeekEvents } from 'containers/Schedule/selector';
+import { makeSelectCurrentWeekEvents } from 'containers/Schedule/selectors';
 import { isEmpty } from 'lodash';
 import { useInjectSaga } from 'utils/injectSaga';
 import reducer from 'containers/Schedule/reducer';
 import { useInjectReducer } from 'utils/injectReducer';
 import saga from 'containers/Schedule/saga';
 import Modal from 'containers/EventInfoModal';
+
+const getSelects = () => {
+  const defaultValues = localStorage.getItem('selectValues')
+    ? JSON.parse(localStorage.getItem('selectValues'))
+    : [];
+  if (defaultValues && !isEmpty(defaultValues)) {
+    return JSON.parse(localStorage.getItem('selectValues')).map(
+      item => item.value,
+    );
+  }
+  return [];
+};
 
 const Schedule = ({
   fetchCurrentWeekEvents,
@@ -24,8 +36,9 @@ const Schedule = ({
 }) => {
   useInjectReducer({ key: 'schedule', reducer });
   useInjectSaga({ key: 'schedule', saga });
+
   useEffect(() => {
-    fetchCurrentWeekEvents();
+    fetchCurrentWeekEvents(getSelects());
     fetchVCParts();
     fetchSelectedVCParts();
   }, []);
@@ -69,7 +82,8 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = {
-  fetchCurrentWeekEvents: () => fetchCurrentWeekEventsRoutine.trigger(),
+  fetchCurrentWeekEvents: events =>
+    fetchCurrentWeekEventsRoutine.trigger(events),
   fetchVCParts: () => fetchVCPartsRoutine.trigger(),
   fetchSelectedVCParts: () => fetchSelectedVCPartsRoutine.trigger(),
 };

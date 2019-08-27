@@ -1,45 +1,60 @@
-import React, { PureComponent } from 'react';
+import React, { useState } from 'react';
 import DownIcon from 'mdi-react/ChevronDownIcon';
 import { Collapse } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import TopbarMenuLink from './TopbarMenuLink';
 
-const Ava = `${process.env.PUBLIC_URL}/img/ava.png`;
+const LogIn = () => (
+  <Link className="topbar__nav-link" to="/auth">
+    <span className="topbar__link-icon lnr lnr-enter-down" />
+    Вход
+  </Link>
+);
 
-export default class TopbarProfile extends PureComponent {
-  constructor() {
-    super();
-    this.state = {
-      collapse: false,
-    };
-  }
+const TopbarProfile = () => {
+  const [collapse, toggleCollapse] = useState(false);
 
-  toggle = () => {
-    this.setState(prevState => ({ collapse: !prevState.collapse }));
-  };
+  const toggle = () => toggleCollapse(!collapse);
 
-  render() {
-    const { collapse } = this.state;
+  return (
+    <div className="topbar__profile">
+      <button className="topbar__avatar" type="button" onClick={toggle}>
+        <p className="topbar__avatar-name">Roman Johanson</p>
+        <DownIcon className="topbar__icon" />
+      </button>
+      {collapse && (
+        <button className="topbar__back" type="button" onClick={toggle} />
+      )}
+      <Collapse isOpen={collapse} className="topbar__menu-wrap">
+        <div className="topbar__menu">
+          <TopbarMenuLink
+            title="My Profile"
+            icon="user"
+            path="/account/profile"
+          />
+          <TopbarMenuLink
+            title="Calendar"
+            icon="calendar-full"
+            path="/default_pages/calendar"
+          />
+          <TopbarMenuLink
+            title="Tasks"
+            icon="list"
+            path="/default_pages/calendar"
+          />
+          <TopbarMenuLink title="Inbox" icon="inbox" path="/mail" />
+          <div className="topbar__menu-divider" />
+          <TopbarMenuLink
+            title="Account Settings"
+            icon="cog"
+            path="/account/profile"
+          />
+          <TopbarMenuLink title="Lock Screen" icon="lock" path="/lock_screen" />
+          <TopbarMenuLink title="Log Out" icon="exit" path="/log_in" />
+        </div>
+      </Collapse>
+    </div>
+  );
+};
 
-    return (
-      <div className="topbar__profile">
-        <button className="topbar__avatar" type="button" onClick={this.toggle}>
-          <p className="topbar__avatar-name">Roman Johanson</p>
-          <DownIcon className="topbar__icon" />
-        </button>
-        {collapse && <button className="topbar__back" type="button" onClick={this.toggle} />}
-        <Collapse isOpen={collapse} className="topbar__menu-wrap">
-          <div className="topbar__menu">
-            <TopbarMenuLink title="My Profile" icon="user" path="/account/profile" />
-            <TopbarMenuLink title="Calendar" icon="calendar-full" path="/default_pages/calendar" />
-            <TopbarMenuLink title="Tasks" icon="list" path="/default_pages/calendar" />
-            <TopbarMenuLink title="Inbox" icon="inbox" path="/mail" />
-            <div className="topbar__menu-divider" />
-            <TopbarMenuLink title="Account Settings" icon="cog" path="/account/profile" />
-            <TopbarMenuLink title="Lock Screen" icon="lock" path="/lock_screen" />
-            <TopbarMenuLink title="Log Out" icon="exit" path="/log_in" />
-          </div>
-        </Collapse>
-      </div>
-    );
-  }
-}
+export default TopbarProfile;

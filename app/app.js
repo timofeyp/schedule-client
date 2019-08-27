@@ -15,6 +15,7 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import history from 'utils/history';
 import 'normalize.css';
+import 'svgembedder.min.js';
 // Import root app
 import App from 'containers/App';
 
